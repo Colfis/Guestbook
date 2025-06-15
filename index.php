@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "<p>Thank you <strong>$name</strong>! Your message: <em>$message</em> has been received.</p>";
     
     // Database connection
-    
+    $db =  new mysqli("sql303.infinityfree.com", "if0_39233272", "GDLf9vcpiK", "if0_39233272_guestbook");
 
     // Check connection
     if ($db->connect_error) {
