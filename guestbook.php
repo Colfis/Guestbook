@@ -22,6 +22,33 @@
 </html>
 
 <?php
+include "jsonfunc.php";
+
+$contents = file_get_contents('guestbook.json');
+// Check if the file exists and is readable
+if ($contents === false) {
+    echo "<p>Error reading guestbook data.</p>";
+    exit;
+}
+// Decode the JSON data
+$data = json_decode($contents, true);
+// Check if the JSON data is valid
+if (json_last_error() !== JSON_ERROR_NONE) {
+    echo "<p>Error decoding guestbook data: " . json_last_error_msg() . "</p>";
+    exit;
+}
+
+// Display existing messages
+if (!empty($data)) {
+    echo "<h2>Messages:</h2>";
+    foreach ($data as $entry) {
+        echo "<p><strong>" . htmlspecialchars($entry['name']) . "</strong>: " . htmlspecialchars($entry['message']) . " <em>(" . htmlspecialchars($entry['timestamp']) . ")</em></p>";
+    }
+} else {
+    echo "<p>No messages found.</p>";
+}
+
+// Check if the form has been submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim(htmlspecialchars($_POST['name']));
     $message = trim(htmlspecialchars($_POST['message']));
@@ -29,6 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the name and message are not empty
     if (empty($name) || empty($message)) {
         echo "<p>Please fill in all fields.</p>";
+        exit;
+    }
+    // Validate the name length
+    if (strlen($name) < 3 || strlen($name) > 20) {
+        echo "<p>Name must be between 3 and 20 characters long.</p>";
         exit;
     }
 
@@ -39,23 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     echo "<p>Thank you <strong>$name</strong>! Your message: <em>$message</em> has been received.</p>";
-    
-    // Database connection
-    
-
-    // Check connection
-    if ($db->connect_error) {
-        die("Connection failed: " . $db->connect_error);
-    }
-    // Prepare and bind
-    $sql = "INSERT INTO MyGuests (firstname, lastname, email)
-    VALUES ('John', 'Doe', 'john@example.com')";
-
-    if ($db->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $db->error;
-    }
-    // Close the connection
-    $db->close();
+    // Store the message using the function from jsonfunc.php
+    storeMessage($name, $message);
+    echo "<p>Your message has been stored successfully. Please Refresh the page to see your message.</p>";
+  }
 ?>
