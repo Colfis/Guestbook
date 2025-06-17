@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Guestbook</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   </head>
   <body>
     <h1>Colins Guestbook</h1>
@@ -23,7 +24,6 @@
 
 <?php
 include "jsonfunc.php";
-
 $contents = file_get_contents('guestbook.json');
 // Check if the file exists and is readable
 if ($contents === false) {
@@ -38,11 +38,17 @@ if (json_last_error() !== JSON_ERROR_NONE) {
     exit;
 }
 
-// Display existing messages
+// Display existing messages and Likes/Dislikes and the Buttons
 if (!empty($data)) {
     echo "<h2>Messages:</h2>";
     foreach ($data as $entry) {
-        echo "<p><strong>" . htmlspecialchars($entry['name']) . "</strong>: " . htmlspecialchars($entry['message']) . " <em>(" . htmlspecialchars($entry['timestamp']) . ")</em></p>";
+        echo "<p>
+                <strong>" . htmlspecialchars($entry['name']) . "</strong>: " . htmlspecialchars($entry['message']) . " <em>(" . htmlspecialchars($entry['timestamp']) . ")</em>
+                <span class='material-symbols-outlined'>thumb_up</span>
+                <span class='post-rating'>0</span>
+                <span class='material-symbols-outlined'>thumb_down</span>
+                <span class='post-rating'>0</span>
+              </p>";
     }
 } else {
     echo "<p>No messages found.</p>";

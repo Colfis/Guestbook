@@ -1,5 +1,6 @@
 const submit = document.getElementById('submit-button');
 const response = document.getElementById('response-message');
+const like_button = document.getElementsByClassName('material-symbols-outlined');
 
 submit.addEventListener("click", (event) => {
     const nameInput = document.getElementById('name').value;
