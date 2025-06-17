@@ -44,13 +44,13 @@ if (!empty($data)) {
     foreach ($data as $entry) {
         echo "<p>
                 <strong>" . htmlspecialchars($entry['name']) . "</strong>: " . htmlspecialchars($entry['message']) . " <em>(" . htmlspecialchars($entry['timestamp']) . ")</em>
-                <span class='post-rating-selected'>
-                  <span class='material-symbols-outlined'>thumb_up</span>
-                  <span class='post-rating'>0</span>
+                <span class='post-rating '>
+                  <span class='post-rating-button material-symbols-outlined'>thumb_up</span>
+                  <span class='post-rating-counter'>0</span>
                 </span>
-                <span class='post-rating-selected'>
-                  <span class='material-symbols-outlined'>thumb_down</span>
-                  <span class='post-rating'>0</span>
+                <span class='post-rating '>
+                  <span class='post-rating-button material-symbols-outlined'>thumb_down</span>
+                  <span class='post-rating-counter'>0</span>
                 </span>
               </p>";
     }
