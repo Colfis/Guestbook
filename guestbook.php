@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Guestbook</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@1" rel="stylesheet" />
   </head>
   <body>
     <h1>Colins Guestbook</h1>
@@ -44,10 +44,14 @@ if (!empty($data)) {
     foreach ($data as $entry) {
         echo "<p>
                 <strong>" . htmlspecialchars($entry['name']) . "</strong>: " . htmlspecialchars($entry['message']) . " <em>(" . htmlspecialchars($entry['timestamp']) . ")</em>
-                <span class='material-symbols-outlined'>thumb_up</span>
-                <span class='post-rating'>0</span>
-                <span class='material-symbols-outlined'>thumb_down</span>
-                <span class='post-rating'>0</span>
+                <span class='post-rating-selected'>
+                  <span class='material-symbols-outlined'>thumb_up</span>
+                  <span class='post-rating'>0</span>
+                </span>
+                <span class='post-rating-selected'>
+                  <span class='material-symbols-outlined'>thumb_down</span>
+                  <span class='post-rating'>0</span>
+                </span>
               </p>";
     }
 } else {
@@ -58,6 +62,8 @@ if (!empty($data)) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim(htmlspecialchars($_POST['name']));
     $message = trim(htmlspecialchars($_POST['message']));
+    $likes = 0;
+    $dislikes = 0;
     
     // Check if the name and message are not empty
     if (empty($name) || empty($message)) {
@@ -78,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     echo "<p>Thank you <strong>$name</strong>! Your message: <em>$message</em> has been received.</p>";
     // Store the message using the function from jsonfunc.php
-    storeMessage($name, $message);
+    storeMessage($name, $message, $likes, $dislikes);
     echo "<p>Your message has been stored successfully. Please Refresh the page to see your message.</p>";
   }
 ?>

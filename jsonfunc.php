@@ -1,5 +1,5 @@
 <?php
-function storeMessage($name, $message) {
+function storeMessage($name, $message, $likes, $dislikes) {
     // Define the file path
     $filePath = 'guestbook.json';
 
@@ -9,12 +9,14 @@ function storeMessage($name, $message) {
     } else {
         $data = [];
     }
-
+    
     // Add the new message
     $data[] = [
         'name' => $name,
         'message' => $message,
-        'timestamp' => date('Y-m-d H:i:s')
+        'timestamp' => date('Y-m-d H:i:s'),
+        'likes' => $likes,
+        'dislikes'  => $dislikes
     ];
 
     // Write the updated data back to the file
