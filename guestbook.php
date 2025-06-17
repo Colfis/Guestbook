@@ -11,7 +11,7 @@
   <body>
     <h1>Colins Guestbook</h1>
     <div id="guestbook-form">
-      <form action="" method="post">
+      <form action="submit.php" method="post">
         <input type="text" name="name" id="name" placeholder="Your Name" required>
         <input type="text" name="message" id="message" placeholder="Your Message" required>
         <button id="submit-button" type="submit">Sign Guestbook</button>
@@ -24,6 +24,38 @@
 
 <?php
 include "jsonfunc.php";
+
+
+// Check if the form has been submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = trim(htmlspecialchars($_POST['name']));
+    $message = trim(htmlspecialchars($_POST['message']));
+    $likes = 0;
+    $dislikes = 0;
+
+    // Check if the name and message are not empty
+    if (empty($name) || empty($message)) {
+        echo "<p>Please fill in all fields.</p>";
+        exit;
+    }
+    // Validate the name length
+    if (strlen($name) < 3 || strlen($name) > 20) {
+        echo "<p>Name must be between 3 and 20 characters long.</p>";
+        exit;
+    }
+
+    // Validate the name
+    if (preg_match('~[0-9]+~', $name)) {
+      echo 'name cannot contain numbers';
+      exit;
+    }
+
+    echo "<p>Thank you <strong>$name</strong>! Your message: <em>$message</em> has been received.</p>";
+    // Store the message using the function from jsonfunc.php
+    storeMessage($name, $message, $likes, $dislikes);
+    echo "<p>Your message has been stored successfully. Please Refresh the page to see your message.</p>";
+  }
+
 $contents = file_get_contents('guestbook.json');
 // Check if the file exists and is readable
 if ($contents === false) {
@@ -44,47 +76,19 @@ if (!empty($data)) {
     foreach ($data as $entry) {
         echo "<p>
                 <strong>" . htmlspecialchars($entry['name']) . "</strong>: " . htmlspecialchars($entry['message']) . " <em>(" . htmlspecialchars($entry['timestamp']) . ")</em>
-                <span class='post-rating '>
-                  <span class='post-rating-button material-symbols-outlined'>thumb_up</span>
-                  <span class='post-rating-counter'>0</span>
-                </span>
-                <span class='post-rating '>
-                  <span class='post-rating-button material-symbols-outlined'>thumb_down</span>
-                  <span class='post-rating-counter'>0</span>
+                <span class='post' data-post-id='7712'>
+                  <span class='post-rating '>
+                    <span class='post-rating-button material-symbols-outlined'>thumb_up</span>
+                    <span class='post-rating-counter'>0</span>
+                  </span>
+                  <span class='post-rating '>
+                    <span class='post-rating-button material-symbols-outlined'>thumb_down</span>
+                    <span class='post-rating-counter'>0</span>
+                  </span>
                 </span>
               </p>";
     }
 } else {
     echo "<p>No messages found.</p>";
 }
-
-// Check if the form has been submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim(htmlspecialchars($_POST['name']));
-    $message = trim(htmlspecialchars($_POST['message']));
-    $likes = 0;
-    $dislikes = 0;
-    
-    // Check if the name and message are not empty
-    if (empty($name) || empty($message)) {
-        echo "<p>Please fill in all fields.</p>";
-        exit;
-    }
-    // Validate the name length
-    if (strlen($name) < 3 || strlen($name) > 20) {
-        echo "<p>Name must be between 3 and 20 characters long.</p>";
-        exit;
-    }
-
-    // Validate the name
-    if (preg_match('~[0-9]+~', $name)) {
-      echo 'string with numbers';
-      exit;
-    }
-
-    echo "<p>Thank you <strong>$name</strong>! Your message: <em>$message</em> has been received.</p>";
-    // Store the message using the function from jsonfunc.php
-    storeMessage($name, $message, $likes, $dislikes);
-    echo "<p>Your message has been stored successfully. Please Refresh the page to see your message.</p>";
-  }
 ?>

@@ -10,8 +10,12 @@ function storeMessage($name, $message, $likes, $dislikes) {
         $data = [];
     }
     
+    // Getting Last ID and adding +1 To it to have unique ids
+    $nextId = !empty($data) ? end($data)['id'] + 1 : 1;
+
     // Add the new message
     $data[] = [
+        'id' => $nextId,
         'name' => $name,
         'message' => $message,
         'timestamp' => date('Y-m-d H:i:s'),

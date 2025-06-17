@@ -1,8 +1,17 @@
 [
     {
+        "id": 1,
         "name": "Colin",
         "message": "Please Sign it And do a Commit",
         "timestamp": "2025-06-17 22:23:28",
+        "likes": 0,
+        "dislikes": 0
+    },
+    {
+        "id": 2,
+        "name": "amernur",
+        "message": "ad1",
+        "timestamp": "2025-06-17 23:50:38",
         "likes": 0,
         "dislikes": 0
     }
