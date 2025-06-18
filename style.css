@@ -4,7 +4,6 @@
 
 .post-rating-button {
     margin-left: 10px; 
-    position: relative;
     cursor: pointer;
     color: #555555;
 }
@@ -19,14 +18,31 @@
 }
 
 .post-rating-counter {
-    display: inline-flex;
+    position: fixed;
     align-items: center;
     cursor: default;
     line-height: 1.2;
     color: #555555;
 }
 
+.counter-like {
+    left: 475px;
+}
+
+.counter-dislike {
+    left: 515px;
+}
 
 .post-rating:not(.post-rating-selected) > .post-rating-button:hover {
     color: black;
+}
+
+.like-pos {
+    position: fixed;
+    left: 440px;
+}
+
+.dislike-pos {
+    position: fixed;
+    left: 480px;
 }

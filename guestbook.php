@@ -45,12 +45,12 @@ if (!empty($data)) {
         echo "<p>
                 <strong>" . htmlspecialchars($entry['name']) . "</strong>: " . htmlspecialchars($entry['message']) . " <em>(" . htmlspecialchars($entry['timestamp']) . ")</em>
                 <span class='post-rating '>
-                  <span class='post-rating-button material-symbols-outlined'>thumb_up</span>
-                  <span class='post-rating-counter'>0</span>
+                  <span class='post-rating-button like-pos material-symbols-outlined'>thumb_up</span>
+                  <span class='post-rating-counter counter-like'>0</span>
                 </span>
                 <span class='post-rating '>
-                  <span class='post-rating-button material-symbols-outlined'>thumb_down</span>
-                  <span class='post-rating-counter'>0</span>
+                  <span class='post-rating-button dislike-pos material-symbols-outlined'>thumb_down</span>
+                  <span class='post-rating-counter counter-dislike'>0</span>
                 </span>
               </p>";
     }
