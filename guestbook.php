@@ -18,7 +18,7 @@
         <p id="response-message"></p>
       </form>
     </div>
-    <script src="guestbook.js"></script>
+    <script src="form-validation.js"></script>
   </body>
 </html>
 
@@ -43,15 +43,17 @@ if (!empty($data)) {
     echo "<h2>Messages:</h2>";
     foreach ($data as $entry) {
         echo "<p>
+              <span class='post' data-post-id='" . htmlspecialchars($entry['id']) . "'>
                 <strong>" . htmlspecialchars($entry['name']) . "</strong>: " . htmlspecialchars($entry['message']) . " <em>(" . htmlspecialchars($entry['timestamp']) . ")</em>
                 <span class='post-rating '>
                   <span class='post-rating-button like-pos material-symbols-outlined'>thumb_up</span>
-                  <span class='post-rating-counter counter-like'>0</span>
+                  <span class='post-rating-counter counter-like'>" . $entry['likes'] . "</span>
                 </span>
                 <span class='post-rating '>
                   <span class='post-rating-button dislike-pos material-symbols-outlined'>thumb_down</span>
-                  <span class='post-rating-counter counter-dislike'>0</span>
+                  <span class='post-rating-counter counter-dislike'>" . $entry['dislikes'] . "</span>
                 </span>
+              </span>
               </p>";
     }
 } else {
@@ -88,3 +90,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "<p>Your message has been stored successfully. Please Reopen the page to see your message.</p>";
   }
 ?>
+
+<!-- like/dislike button sending to json -->
+<script>
+  document.querySelectorAll(".post").forEach(post => {
+    const postId = post.dataset.postId;
+    const ratings = post.querySelectorAll(".post-rating");
+    const likeRating = ratings[0];
+
+    ratings.forEach(rating => {
+      const button = rating.querySelector(".post-rating-button");
+      const count = rating.querySelector(".post-rating-counter");
+
+      button.addEventListener("click", async () => {
+        const liketype = likeRating === rating ? 1 : 0;
+        const likeordislike = {
+          type: liketype,
+          id: postId
+        };
+
+        try {
+          const response = await fetch("likebuttonstoring.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(likeordislike)
+          })
+
+          const result = await response.json();
+          console.log(result);
+
+          // count.textContent = result.newCount;
+
+        } catch (error) {
+          console.error("Error submitting rating:", error);
+        }
+      });
+    });
+  });
+</script>
