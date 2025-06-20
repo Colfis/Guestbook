@@ -101,9 +101,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ratings.forEach(rating => {
       const button = rating.querySelector(".post-rating-button");
       const count = rating.querySelector(".post-rating-counter");
-
+      
       button.addEventListener("click", async () => {
         const liketype = likeRating === rating ? 1 : 0;
+        if (liketype === 1) {
+          count.textContent = parseInt(count.textContent) + 1;
+        } else {
+          count.textContent = parseInt(count.textContent) + 1;
+        }
         const likeordislike = {
           type: liketype,
           id: postId

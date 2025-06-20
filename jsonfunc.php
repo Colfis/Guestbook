@@ -20,7 +20,7 @@ function storeMessage($name, $message, $likes, $dislikes) {
         'message' => $message,
         'timestamp' => date('Y-m-d H:i:s'),
         'likes' => $likes,
-        'dislikes'  => $dislikes
+        'dislikes' => $dislikes
     ];
 
     // Write the updated data back to the file
