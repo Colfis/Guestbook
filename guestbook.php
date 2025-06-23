@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Guestbook</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Favicon Link Below. Guestbook icons created by Three musketeers - Flaticon -->
+    <link rel="icon" type="image/png" href="Guestbook.png"/>
+    <link rel="stylesheet" href="style.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@1" rel="stylesheet" />
   </head>
   <body>

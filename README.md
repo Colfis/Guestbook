@@ -22,14 +22,14 @@ A simple web-based guestbook application built with PHP, JavaScript, and JSON fo
 
 1. Clone or download this repository.
 2. Make sure your server supports PHP and has write permissions for `guestbook.json`.
-3. Open `guestbook.php` in your browser.
+3. Open `guestbook.php` in Web Server or inside VS Code and using the PHP Server Extension.
 4. Fill in your name and message, then submit to sign the guestbook.
 5. Make a pull request so i can add ur lovely signature to the guestbook 
 
 ## Requirements
 
 - PHP 5.4 or higher
-- A web server (e.g., Apache, Nginx) or just open it in ur local browser and sign it
+- A web server (e.g., Apache, Nginx) or VS Codes extension PHP Server: https://marketplace.visualstudio.com/items?itemName=brapifra.phpserver
 
 ## License
 
